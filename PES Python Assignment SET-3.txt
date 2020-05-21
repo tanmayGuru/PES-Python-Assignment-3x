@@ -1,0 +1,742 @@
+'''
+P41
+-------------------------------------------------------------------
+'''
+
+import calendar
+
+#a
+ctc = calendar.TextCalendar(firstweekday = 0)
+print(ctc.formatyear(2016,w = 2,l = 1,c = 10,m = 3))
+
+#b
+print("Number of leap years between 1980 and 2025 are: ",calendar.leapdays(1980,2025))
+
+#c
+year = int(input("Enter year: "))
+if calendar.isleap(year) == True:
+    print("The given year {} is a leap year".format(year))
+else:
+    print("The given year {} is not a leap year".format(year))
+    
+#d
+month = int(input("Enter any monthnumber of 2016: "))
+mtm = calendar.TextCalendar(firstweekday = 0)
+print(mtm.formatmonth(2016,month))
+
+'''
+P42
+-------------------------------------------------------------------
+'''
+def fib(n):
+    if n>0:
+        first = 0
+        second = 1
+        if n == 1:
+            print(first)
+        else:
+            print("{}\n{}".format(first,second))
+            for i in range(n-2):
+                number = first+second
+                print(number)
+                first = second
+                second = number
+n = int(input("Enter the number of elements to be in the fibonacci series: "))
+fib(n)
+
+'''
+P43
+-------------------------------------------------------------------
+'''
+def bs(A,low,high,key):
+    if A[low]>A[high]:
+        A = A[::-1]
+    while(low<=high):
+        mid = low+(high-low)//2
+        if(A[mid]<key):
+            low = mid+1
+        elif(A[mid]>key):
+            high = mid-1
+        else:
+            return mid
+    return -1
+
+List = list(map(int,input("Enter the elements: ").split()))
+List.sort()
+print(List)
+N = int(input("Enter the number of Elements you want to search: "))
+for i in range(N):
+    key = int(input("Enter the element you want to search: "))
+    pos = bs(List,0,len(List)-1,key)
+    if pos != -1:
+        print("{} found at index {}".format(key,pos))
+    else:
+        print("{} not found!".format(key))
+
+'''
+P44
+-------------------------------------------------------------------
+'''
+
+num1 = float(input("Enter first number: "))
+num2 = float(input("Enter second number: "))
+
+add = lambda num1,num2:num1+num2
+print("Addition of {} and {} is {}".format(num1,num2,add(num1,num2)))
+
+sub = lambda num1,num2:num1-num2
+print("Subtraction of {} and {} is {}".format(num1,num2,sub(num1,num2)))
+
+mul = lambda num1,num2:num1*num2
+print("Multiplication of {} and {} is {}".format(num1,num2,mul(num1,num2)))
+
+div = lambda num1,num2:num1/num2
+print("Division of {} and {} is {}".format(num1,num2,div(num1,num2)))
+
+modulus = lambda num1,num2:num1%num2
+print("Modulus of {} and {} is {}".format(num1,num2,modulus(num1,num2)))
+
+floordiv = lambda num1,num2:num1//num2
+print("Floor Division of {} and {} is {}".format(num1,num2,floordiv(num1,num2)))
+
+'''
+P46
+-------------------------------------------------------------------
+'''
+
+def biggestOfFourNumbers(a = 0,b = 0,c = 0,d = 0):
+    if(a>b):
+        if(a>c):
+            if(a>d):
+                print("Biggest: ",a)
+            else:
+                print("Biggest :",d)
+        elif(c>d):
+            print("Biggest: ",c)
+        else:
+            print("Biggest: ",d)
+    elif(b>c):
+        if(b>d):
+            print("Biggest :",b)
+        else:
+            print("Biggest :",d)
+    elif(c>d):
+        print("Biggest: ",c)
+    else:
+        print("Biggest :",d)   
+
+a = int(input("Enter number1: "))
+b = int(input("Enter number2: "))
+c = int(input("Enter number3: "))
+d = int(input("Enter number4: "))
+
+#a
+biggestOfFourNumbers(a,b,c,d)
+
+#b
+biggestOfFourNumbers()
+
+'''
+P47
+-------------------------------------------------------------------
+'''
+def tupleExtension(tup,lis):
+    l = list(tup)
+    l.extend(lis)
+    return tuple(l)
+tup = (4,3,1)
+lis = [1,2,5]
+
+result = tupleExtension(tup,lis)
+print(result)
+
+'''
+P48
+-------------------------------------------------------------------
+'''
+
+#c
+def substringGenerator(string,delimiter):
+    start = 0
+    L = []
+    counter = -1
+    for ele in string:
+        counter+=1
+        if ele == delimiter:
+            L.append(string[start:counter])
+            start = counter+1
+    L.append(string[start:])
+    return L
+
+string = "Pack: My: Box: With: Good: Food"
+delimiter = ":"
+ListOfSubstring = substringGenerator(string,delimiter)
+print(ListOfSubstring)
+
+'''
+P49
+-------------------------------------------------------------------
+'''
+#a
+file1 = open("myfile.txt","r")
+print(file1.read())
+
+#b
+file2 = open("mynewfile.txt","w")
+file2.write("""The Spanish flu, also known as the 1918 flu pandemic, was an unusually deadly influenza pandemic.
+            Lasting almost 36 months from January 1918 to December 1920,
+            it infected 500 million people – about a third of the world's population at the time.
+            The death toll is estimated to have been anywhere from 17 million to 50 million,
+            and possibly as high as 100 million, making it one of the deadliest pandemics in human history.""")
+file2.close()
+
+#c
+with open("mynewfile.txt","a") as f:
+    f.write("""To maintain morale, World War I censors minimized early reports of illness and mortality in Germany, the United Kingdom, France, and the United States.
+            Newspapers were free to report the epidemic's effects in neutral Spain, such as the grave illness of King Alfonso XIII,
+            and these stories created a false impression of Spain as especially hard hit.
+            This gave rise to the name Spanish flu. Historical and epidemiological data are inadequate to identify with certainty the pandemic's
+            geographic origin, with varying views as to its location.""")
+    f.close()
+
+with open("mynewfile.txt","r") as f:
+    print(f.read())
+
+'''
+P50
+-------------------------------------------------------------------
+'''
+
+#a
+with open("myfile.txt","r") as f:
+    while True:
+        line = f.readline(10)
+        if line == "":
+            break
+        else:
+            print(line)
+
+#b
+with open("myfile.txt","r") as f:
+        print(f.readline(100))
+        f.seek(0)
+
+#c
+file3 = open("mynewfile.txt","r")
+f = file3.readlines()[5:]
+print(f)
+
+	'''
+P51
+-------------------------------------------------------------------
+'''
+
+import io
+import glob
+import re
+
+pattern = "Treasure"
+for file in glob.glob("C:\\Users\\user\\Desktop\\assignmentfolder\\*.txt"):
+    with io.open(file,"r",encoding = "utf8") as f:
+        filetext = f.read()
+        f.close()
+        matches = re.findall(pattern,filetext)
+        if len(matches) != 0:
+            print("{} has the {} number of matching patterns in it".format(file,len(matches)))
+
+'''
+P52
+-------------------------------------------------------------------
+'''
+strlist=list()
+for lines in reversed(open("file.txt").readlines()):
+    print lines.rstrip()
+    strlist.append(lines.rstrip())
+    
+    
+for string in strlist:
+    print string[::-1]
+    
+    
+    
+    
+    
+'''
+P53
+-------------------------------------------------------------------
+'''
+fo = open("file.txt", "r+")
+print "Name of the file: ", fo.name
+# Close opend file
+fo.close()
+
+
+fo = open("file.txt", "r")
+print "Name of the file: ", fo.name
+fo.flush()
+fo.close()
+
+fo = open("file.txt", "r+")
+print "Name of the file: ", fo.name
+fid = fo.fileno()
+print "File Descriptor: ", fid
+fo.close()
+
+fo = open("file.txt", "r+")
+print "Name of the file:", fo.name
+ret = fo.isatty()
+print "Return value : ", ret
+fo.close()
+
+fo = open("file.txt", "r+")
+print "Name of the file: ", fo.name
+for index in range(1):
+   line = fo.next()
+   print "Line No %d - %s" % (index, line)
+fo.close()
+
+fo = open("file.txt", "r+")
+print "Name of the file: ", fo.name
+line = fo.read(100)
+print "Read Line: %s" % (line)
+fo.close()
+
+fo = open("file.txt", "r+")
+print "Name of the file: ", fo.name
+line = fo.readline()
+print "Read Line: %s" % (line)
+line = fo.readline(5)
+print "Read Line: %s" % (line)
+fo.close()
+
+fo = open("file.txt", "r+")
+print "Name of the file: ", fo.name
+line = fo.readlines()
+print "Read Line: %s" % (line)
+line = fo.readlines(2)
+print "Read Line: %s" % (line)
+fo.close()
+
+fo = open("file.txt", "rw+")
+print "Name of the file: ", fo.name
+line = fo.readline()
+print "Read Line: %s" % (line)
+# Again set the pointer to the beginning
+fo.seek(0, 0)
+line = fo.readline()
+print "Read Line: %s" % (line)
+fo.close()
+
+fo = open("file.txt", "rw+")
+print "Name of the file: ", fo.name
+line = fo.readline()
+print "Read Line: %s" % (line)
+# Get the current position of the file.
+pos = fo.tell()
+print "Current Position: %d" % (pos)
+# Close opend file
+fo.close()
+
+
+fo = open("file.txt", "rw+")
+print "Name of the file: ", fo.name
+line = fo.readline()
+print "Read Line: %s" % (line)
+# Now truncate remaining file.
+fo.truncate()
+# Try to read file now
+line = fo.readline()
+print "Read Line: %s" % (line)
+fo.close()
+
+fo = open("file.txt", "rw+")
+print "Name of the file: ", fo.name
+str = "This is 6th line"
+# Write a line at the end of the file.
+#fo.seek(0, 1)
+line = fo.write( str )
+# Now read complete file from beginning.
+fo.seek(0,0)
+lines=fo.read()
+print lines
+fo.close()
+
+fo = open("file.txt", "rw+")
+print "Name of the file: ", fo.name
+str = "This is 6th line"
+# Write a line at the end of the file.
+#fo.seek(0, 1)
+line = fo.writelines( str )
+# Now read complete file from beginning.
+fo.seek(0,0)
+lines=fo.read()
+print lines
+fo.close()
+
+
+
+
+
+'''
+P54
+-------------------------------------------------------------------
+'''
+import time
+i=1
+try:
+    while(i<5):
+        time.sleep(1)
+        print i
+        i+=1
+except KeyboardInterrupt:
+    print "KeyboardInterrupt"
+    
+    
+try:
+    name = input("Enter your name:")
+    print "Good Morning "+ name
+except NameError:#Enter your name in Quotes else NameError msg will appear
+    print "NameError"
+
+
+
+try:
+    num= 0/0
+except ArithmeticError:
+    print "ArithmeticError"
+    
+
+
+ 
+ 
+'''
+P55
+-------------------------------------------------------------------
+'''
+def PoundToKg(pound):
+  try:
+    assert (pound>=0),"Negative weight not allowed"
+    return pound*0.453592
+  except AssertionError, exp:
+    return exp
+print PoundToKg(43)
+print PoundToKg(-13)
+
+
+def PoundToKg(pound):
+  try:
+    assert (pound>=100), "Weight should be more than or equal to 100"
+    return pound*0.453592
+  except AssertionError, exp:
+    return exp
+print PoundToKg(56)
+print PoundToKg(101)
+
+
+
+
+'''
+P56
+-------------------------------------------------------------------
+'''
+
+try:
+    myfile =open("file.txt","r")
+    print myfile.read()
+    myfile.write("Hello")
+except IOError:
+    print "Writing mode is not allowed"
+
+try:
+    num = int(input("Enter value:"))
+except ValueError:
+    print "ValueError"
+
+'''Output Extract:
+Enter value:'trttr'
+ValueError'''
+
+
+
+
+
+'''
+P57
+-------------------------------------------------------------------
+'''
+import math
+import sys
+import time
+#Exception
+try:
+    num=a/2
+except Exception:
+    print"Exception"
+
+#Standard error
+try:
+    f0=open("file1.txt","r")
+except StandardError:
+    print "Standard error:No file exists"
+
+#Arithmetic error
+try:
+    div=2/0
+except ArithmeticError:
+    print "Arithmetic error exception"
+
+#StopIteration
+try:
+    fo=open('file.txt',"r")
+    for i in range(1,10):
+        print f.next()
+except StopIteration:
+    print "Stop Iteration Exception"
+f.close()
+
+#Systemexit
+try:
+    sys.exit()
+except SystemExit:
+    print "system exit exception"
+
+
+#Overflow error
+try:
+    a=math.exp(4/42*349304332)
+except OverflowError:
+    print "Overflow error exception"
+
+#Value error
+try:
+    a=math.sqrt(-32/3)
+except ValueError:
+    print "ValueError"
+
+#Zero division error
+try:
+    a=2/0
+except ZeroDivisionError:
+    print "Zero Division exception"
+
+#AssertionErrror
+try:
+    a=12
+    assert (a>10),"assertion error"
+except AssertionError:
+    print "Assertion error"
+    
+#Attribute Error
+try:
+    raise AttributeError
+except AttributeError:
+    print "Attribute error"    
+
+#EOF error
+try:
+    fo=open("file.txt","r")
+    fo.read()
+except EOFError:
+    print "EOF error"
+
+#import error
+try:
+    import dummy
+except ImportError:
+    print "Import error exception"
+
+#look up error
+dict = {'empid':'empname'}
+try:
+    print dict['abc']
+except LookupError:
+    print 'Lookup error'
+    
+#index error
+try:
+    list1=[12,13,14,45,34]
+    print list1[9]
+except IndexError:
+    print "IndexOutofbound"
+
+#name error:
+try:
+    print name
+except NameError:
+    print "Name Error"  
+    
+#keyboard interrupt
+try:
+    x=input()
+    time.sleep(1)
+except KeyboardInterrupt:
+    print "Keyboard interrupt"
+
+#KeyError
+try:
+    print dict['1']
+except:
+    print 'Key Error'
+
+#Unbound Local Error
+try:
+    raise UnboundLocalError
+except UnboundLocalError:
+    print 'UnboundLocalError!'
+#IOError
+try:
+    fo = open('file.txt',"r")
+    fo.write('write hereafter')
+except IOError:
+    print 'IOError!'
+
+#SyntaxError
+try:
+    raise SyntaxError
+except SyntaxError:
+    print 'Syntax Error !'
+
+#TypeError
+try:
+    str ='hello'
+    str = str-1
+except TypeError:
+    print 'Type Error'
+
+#ValueError
+try:
+    str = 'hello'
+    print int(str)
+except ValueError:
+    print 'Value Error'
+
+#Runtime Error
+try:
+    raise RuntimeError
+except RuntimeError:
+    print 'Runtime Error occured !'
+
+
+
+
+
+'''
+P58
+-------------------------------------------------------------------
+'''
+#calc.py
+import math
+
+def add(a,b):
+  'This adds 2 numbers'
+  print "Sum of a and b is",a+b
+    
+def diff(a,b):
+  'This finds the difference between 2 nos'
+  print "Difference of a and b is",a-b
+    
+def multiply(a,b):
+  'This multiplies 2 nos'
+  print "Multiplication of a and b is",a*b
+
+def div(a,b):
+  'This divides 2 nos'
+  print "Division of a and  b is",a/b
+    
+def sqroot(a):
+    print "Square root of the number",a,"is", math.sqrt(a)
+    
+def floor_div(a,b):
+    print "Floor division of a and b is", a//b
+    
+def fib(nterms):
+  "This generates a fibonacci series"
+  a=0
+  b=1
+  if nterms<=0:
+    print("please enter positive number")
+  elif nterms==1:
+    print("Fibonacci series:",a)
+  elif nterms==2:
+    print a
+    print b
+  else:
+    print a
+    print b
+    while(nterms>2):
+      numnext=a+b
+      print numnext
+      a=b
+      b=numnext
+      nterms=nterms-1
+n=int(input("Enter the no of terms"))
+fib(n)
+
+def isprime(num):
+    for i in range(2,):
+        if num%i==0:
+            print num,"not prime"
+            break
+        else:
+            print num,"is prime"
+            break
+number=int(raw_input())        
+isprime(number)        
+
+#math.py
+from calc import*
+add(4,5)
+diff(34,12)
+multiply(5,7)
+div(6,2)
+sqroot(9)
+floor_div(33,5)
+fib(8)
+isprime(443)
+
+
+
+
+
+'''
+P59
+-------------------------------------------------------------------
+'''
+
+#stringop.py
+def sortNumbers(num):
+  for i in range(len(num)-1):
+    for j in range(len(num)-1):
+      if num[j] > num[j+1]:
+        temp = num[j]
+        num[j] = num[j+1]
+        num[j+1] = temp
+  print "Sorted numbers:", num
+    
+def binarySearch(list1, item):
+    list1.sort()
+    first = 0
+    last = len(list1)-1
+    found = False
+    
+    while first<=last and not found:
+        midpoint = (first+last)/2
+        if list1[midpoint] == item:
+            found = True
+            return found
+        else:
+            if item < list1[midpoint]:
+                last = midpoint-1
+            else:
+                first = midpoint+1
+    return found
+
+def reverselist(list2):
+    print list2.reverse()
+    print "reversed list :", list2
+
+# strpackage.py
+from stringop import*
+sortNumbers([34,56,21,11,3])
+print "binarySearch([22,33,44,12,34]):", binarySearch([22,33,44,12,34],22)
+reverselist([11,22,12,10,32,13])
